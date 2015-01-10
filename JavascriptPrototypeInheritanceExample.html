@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        #myMotorBikes {font-family:Verdana;}
+    </style>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script>
+
+        $(function () {
+
+
+        function Motorbike(capacity, topSpeed, gearCount) {
+            this.capacity = capacity;
+            this.topSpeed = topSpeed;
+            this.gearCount = gearCount;
+        }
+
+        Motorbike.prototype.showCapacity = function () {
+            return this.capacity;
+        }
+
+        Motorbike.prototype.showTopSpeed = function () {
+            return this.topSpeed;
+        }
+
+        Motorbike.prototype.showGearCount = function () {
+            return this.gearCount;
+        }
+
+
+
+        function SuperSport(capacity, topSpeed, gearCount, transmissionType) {
+            this.capacity = capacity;
+            this.topSpeed = topSpeed;
+            this.gearCount = gearCount;
+            this.transmissionType = transmissionType;
+        }
+
+
+        SuperSport.prototype = new Motorbike();   //inheritance definition     
+        SuperSport.prototype.constructor = SuperSport;
+
+
+     
+
+
+        SuperSport.prototype.getDetails = function () {  //another method from SuperSport class
+            var MotorbikeDetails = "Capacity: <b>" + this.showCapacity() + "cm3</b><br />" + //using showCapacity method, which is member of Motorbike class
+                                   "topSpeed: <b>" + this.showTopSpeed() + "km/h</b><br />" + //using showTopSpeed - Motorbike class member
+                                   "gearCount: <b>" + this.showGearCount() + "</b><br />" + //using showGearCount - Motorbike class member
+                                   "transmissionType: <b>" + this.transmissionType + "</b><br />"; //transmissionType is as SuperSportProperty
+
+            return MotorbikeDetails;
+        }   
+
+            //object initialization
+            var honda = new SuperSport("599", 249, 6, "chain");  
+            var yamaha = new SuperSport("999", 299, 6, "chain");
+            var bmw = new SuperSport("1199", 199, 5, "kardan shaft");
+
+             
+
+            //printing results
+            $("#myMotorBikes").append("<p><h2>Honda:</h2>" + honda.getDetails() + "</p>");
+            $("#myMotorBikes").append("<p><h2>Yamaha:</h2>" + yamaha.getDetails() + "</p>");
+            $("#myMotorBikes").append("<p><h2>BMW:</h2>" + bmw.getDetails() + "</p>");
+
+            
+
+        });
+    </script>
+</head>
+<body>
+     
+    <div id="myMotorBikes"></div>
+
+
+</body>
+</html>
